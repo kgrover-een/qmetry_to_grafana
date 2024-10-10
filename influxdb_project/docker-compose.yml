@@ -1,0 +1,18 @@
+version: '3.8'
+services:
+  influxdb:
+    image: influxdb:1.8
+    container_name: influxdb
+    ports:
+      - "8086:8086"  # InfluxDB on port 8086 locally
+    volumes:
+      - influxdb_data:/var/lib/influxdb
+    environment:
+      - INFLUXDB_DB=qmetry_data
+      - INFLUXDB_HTTP_AUTH_ENABLED=false  # Disable auth for local development
+    restart: always  # container restarts if stopped
+
+volumes:
+  influxdb_data:
+    driver: local
+

@@ -1,0 +1,46 @@
+{
+  "totalCount": 5,
+  "results": [
+    {
+      "id": "executionId1",
+      "status": "PASS",
+      "duration": 120,
+      "test_cycle": "Cycle 1",
+      "executed_by": "tester1",
+      "start_time": "2024-10-03T10:00:00Z"
+    },
+    {
+      "id": "executionId2",
+      "status": "FAIL",
+      "duration": 200,
+      "test_cycle": "Cycle 1",
+      "executed_by": "tester2",
+      "start_time": "2024-10-03T10:15:00Z"
+    },
+    {
+      "id": "executionId3",
+      "status": "PASS",
+      "duration": 150,
+      "test_cycle": "Cycle 1",
+      "executed_by": "tester1",
+      "start_time": "2024-10-03T10:30:00Z"
+    },
+    {
+      "id": "executionId4",
+      "status": "FAIL",
+      "duration": 170,
+      "test_cycle": "Cycle 2",
+      "executed_by": "tester3",
+      "start_time": "2024-10-03T11:00:00Z"
+    },
+    {
+      "id": "executionId5",
+      "status": "PASS",
+      "duration": 110,
+      "test_cycle": "Cycle 2",
+      "executed_by": "tester3",
+      "start_time": "2024-10-03T11:30:00Z"
+    }
+  ]
+}
+
