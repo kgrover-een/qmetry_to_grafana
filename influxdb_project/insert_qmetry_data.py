@@ -1,51 +1,58 @@
-import json
 import time
+import json
+import os
 from influxdb import InfluxDBClient
-from requests.exceptions import ConnectionError
 
-# Retry settings
-max_retries = 10  # Number of retries
-retry_wait = 5  # Seconds to wait between retries
+# Configuration
+influxdb_host = os.getenv('INFLUXDB_HOST', 'influxdb')
+influxdb_port = 8086
+influxdb_database = 'qmetry_data'
+qmetry_data_file = 'qmetry_data.json'
+retries = 10
+wait = 5
 
-# Function to connect to InfluxDB
-def connect_to_influxdb(host, port, retries, wait):
-    for attempt in range(retries):
-        try:
-            client = InfluxDBClient(host=host, port=port)
-            client.switch_database('qmetry_data')
-            print("Successfully connected to InfluxDB.")
-            return client
-        except ConnectionError:
-            print(f"Attempt {attempt + 1}/{retries} failed: InfluxDB is not ready. Retrying in {wait} seconds...")
-            time.sleep(wait)
-    raise Exception("Failed to connect to InfluxDB after multiple attempts.")
+# Connect to InfluxDB
+client = InfluxDBClient(host=influxdb_host, port=influxdb_port)
 
-# Step 1: Load the QMetry JSON data from the file
-with open('qmetry_data.json') as json_file:
+# Retry logic in case InfluxDB is not ready
+for attempt in range(retries):
+    try:
+        client.create_database(influxdb_database)
+        print("Successfully connected to InfluxDB.")
+        break
+    except Exception as e:
+        print(f"Attempt {attempt + 1}/{retries} failed: {e}. Retrying in {wait} seconds...")
+        time.sleep(wait)
+else:
+    raise Exception(f"Failed to connect to InfluxDB after {retries} retries.")
+
+# Set the database
+client.switch_database(influxdb_database)
+
+# Load QMetry data from JSON file
+with open(qmetry_data_file, 'r') as json_file:
     qmetry_data = json.load(json_file)
 
-# Step 2: Connect to InfluxDB with retries
-client = connect_to_influxdb('influxdb', 8086, max_retries, retry_wait)
-
-# Step 3: Prepare the data for InfluxDB
-influx_data = []
-for execution in qmetry_data['results']:
-    influx_data.append({
+# Prepare data in InfluxDB format
+influx_data = [
+    {
         "measurement": "test_executions",
         "tags": {
-            "execution_id": execution['id'],
-            "status": execution['status'],
-            "test_cycle": execution['test_cycle'],
-            "executed_by": execution['executed_by']
+            "test_case_id": result["id"],
+            "status": result["status"]
         },
         "fields": {
-            "duration": execution['duration']
+            "duration": result["duration"],
+            "executed_by": result["executed_by"],
+            "test_cycle": result["test_cycle"]
         },
-        "time": execution['start_time']
-    })
+        "time": result["start_time"]
+    }
+    for result in qmetry_data['results']
+]
 
-# Step 4: Write the data to InfluxDB
+# Insert data into InfluxDB
 client.write_points(influx_data)
 
-print("QMetry test results inserted into InfluxDB successfully!")
+print("QMetry data has been inserted into InfluxDB.")
 

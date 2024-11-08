@@ -1,5 +1,4 @@
 {
-  "totalCount": 5,
   "results": [
     {
       "id": "executionId1",
@@ -40,7 +39,86 @@
       "test_cycle": "Cycle 2",
       "executed_by": "tester3",
       "start_time": "2024-10-03T11:30:00Z"
+    },
+    {
+      "id": "executionId6",
+      "status": "PASS",
+      "duration": 130,
+      "test_cycle": "Cycle 3",
+      "executed_by": "tester1",
+      "start_time": "2024-10-04T10:00:00Z"
+    },
+    {
+      "id": "executionId7",
+      "status": "PASS",
+      "duration": 95,
+      "test_cycle": "Cycle 3",
+      "executed_by": "tester2",
+      "start_time": "2024-10-04T10:20:00Z"
+    },
+    {
+      "id": "executionId8",
+      "status": "FAIL",
+      "duration": 180,
+      "test_cycle": "Cycle 4",
+      "executed_by": "tester1",
+      "start_time": "2024-10-04T10:40:00Z"
+    },
+    {
+      "id": "executionId9",
+      "status": "PASS",
+      "duration": 125,
+      "test_cycle": "Cycle 4",
+      "executed_by": "tester3",
+      "start_time": "2024-10-04T11:00:00Z"
+    },
+    {
+      "id": "executionId10",
+      "status": "PASS",
+      "duration": 140,
+      "test_cycle": "Cycle 5",
+      "executed_by": "tester2",
+      "start_time": "2024-10-04T11:20:00Z"
+    },
+    {
+      "id": "executionId11",
+      "status": "FAIL",
+      "duration": 160,
+      "test_cycle": "Cycle 5",
+      "executed_by": "tester3",
+      "start_time": "2024-10-04T11:40:00Z"
+    },
+    {
+      "id": "executionId12",
+      "status": "PASS",
+      "duration": 115,
+      "test_cycle": "Cycle 6",
+      "executed_by": "tester1",
+      "start_time": "2024-10-04T12:00:00Z"
+    },
+    {
+      "id": "executionId13",
+      "status": "FAIL",
+      "duration": 145,
+      "test_cycle": "Cycle 6",
+      "executed_by": "tester2",
+      "start_time": "2024-10-04T12:20:00Z"
+    },
+    {
+      "id": "executionId14",
+      "status": "PASS",
+      "duration": 135,
+      "test_cycle": "Cycle 7",
+      "executed_by": "tester3",
+      "start_time": "2024-10-04T12:40:00Z"
+    },
+    {
+      "id": "executionId15",
+      "status": "FAIL",
+      "duration": 160,
+      "test_cycle": "Cycle 7",
+      "executed_by": "tester1",
+      "start_time": "2024-10-04T13:00:00Z"
     }
   ]
 }
-
